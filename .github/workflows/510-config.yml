@@ -1,6 +1,6 @@
 #config在线生成项目
 
-name: X86.510-config
+name: Generate online-config
 
 on:
   repository_dispatch:
