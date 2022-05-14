@@ -33,6 +33,7 @@ git clone https://github.com/jerrykuku/luci-app-vssr.git  package/luci-app-vssr
 git clone https://github.com/jerrykuku/lua-maxminddb.git package/lua-maxminddb
 git clone https://github.com/zxlhhyccc/luci-app-v2raya package/luci-app-v2raya
 git clone https://github.com/thinktip/luci-theme-neobird.git package/luci-theme-neobird
+git clone https://github.com/kiddin9/openwrt-bypass.git package/openwrt-bypass
 
 #检索feeds
 ./scripts/feeds update -a
