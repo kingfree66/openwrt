@@ -20,11 +20,12 @@ sed -i "/uci commit system/i\uci set system.@system[0].hostname='OpenWrt-King'" 
 sed -i "s/hostname='OpenWrt'/hostname='OpenWrt-King'/g" ./package/base-files/files/bin/config_generate
 
 # Add a feed source
-echo 'src-git helloworld https://github.com/fw876/helloworld.git" >> feeds.conf.default
+echo 'src-git helloworld https://github.com/fw876/helloworld.git'>>feeds.conf.default
 echo 'src-git passwall https://github.com/xiaorouji/openwrt-passwall' >>feeds.conf.default
 echo 'src-git passwall1 https://github.com/xiaorouji/openwrt-passwall;luci' >>feeds.conf.default
 echo 'src-git passwall2 https://github.com/xiaorouji/openwrt-passwall2' >>feeds.conf.default
 sed -i '$a src-git diy https://github.com/firker/diy-ziyong' feeds.conf.default
+sed -i '/helloworld/' dfeeds.conf.default
 
 svn co https://github.com/vernesong/OpenClash/trunk/luci-app-openclash package/luci-app-openclash
 svn co https://github.com/Lienol/openwrt-package/trunk/luci-app-filebrowser package/luci-app-filebrowser
@@ -36,9 +37,15 @@ git clone https://github.com/kiddin9/openwrt-bypass.git package/openwrt-bypass
 
 #检索feeds
 ./scripts/feeds update -a
+./scripts/feeds update helloworld
+./scripts/feeds install -a -f -p helloworld
 
 # 删除重复包
 rm -rf feeds/luci/themes/luci-theme-argon
 
 #安装feeds
+./scripts/feeds install -a
+sed -i "/helloworld/d" "feeds.conf.default"
+./scripts/feeds clean
+./scripts/feeds update -a
 ./scripts/feeds install -a
