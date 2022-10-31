@@ -48,6 +48,9 @@ svn co https://github.com/fw876/helloworld/trunk/lua-neturl package/lua-neturl
 # svn co https://github.com/kiddin9/openwrt-packages/trunk/adguardhome package/adguardhome
 # svn co https://github.com/kiddin9/openwrt-packages/trunk/luci-app-adguardhome package/luci-app-adguardhome
 svn co https://github.com/vernesong/OpenClash/trunk/luci-app-openclash package/luci-app-openclash
+git clone https://github.com/jerrykuku/luci-app-vssr.git  package/luci-app-vssr
+git clone https://github.com/jerrykuku/lua-maxminddb.git package/lua-maxminddb
+
 #检索feeds
 ./scripts/feeds update -a
 
