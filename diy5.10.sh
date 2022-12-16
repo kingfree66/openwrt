@@ -50,6 +50,7 @@ git clone -b luci https://github.com/xiaorouji/openwrt-passwall package/passwall
 svn co https://github.com/vernesong/OpenClash/trunk/luci-app-openclash package/luci-app-openclash
 git clone https://github.com/jerrykuku/luci-app-vssr.git  package/luci-app-vssr
 git clone https://github.com/jerrykuku/lua-maxminddb.git package/lua-maxminddb
+git clone https://github.com/destan19/OpenAppFilter.git package/OpenAppFilter
 
 #检索feeds
 ./scripts/feeds update -a
