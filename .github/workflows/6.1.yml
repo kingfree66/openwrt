@@ -6,7 +6,7 @@
 # Blog: https://p3terx.com
 #=================================================
 
-name: OpenWrt-5.10
+name: OpenWrt-6.0
 
 on:
   repository_dispatch:
