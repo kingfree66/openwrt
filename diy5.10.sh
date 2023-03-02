@@ -15,7 +15,7 @@ sed -i 's/KERNEL_PATCHVER:=5.15/KERNEL_PATCHVER:=5.10/g' ./target/linux/x86/Make
 # Uncomment a feed source
 # sed -i 's/^#\(.*helloworld\)/\1/' feeds.conf.default
 
-# 修改openwrt登陆地址,把下面的192.168.2.66修改成你想要的就可以了
+# 修改openwrt登陆地址,把下面的192.168.2.106修改成你想要的就可以了
 sed -i 's/192.168.1.1/192.168.2.66/g' package/base-files/files/bin/config_generate
 
 # 修改主机名字，把Unicorn修改你喜欢的就行（不能纯数字或者使用中文）
