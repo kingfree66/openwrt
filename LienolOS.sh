@@ -13,6 +13,13 @@
 # Uncomment a feed source
 # sed -i 's/^#\(.*helloworld\)/\1/' feeds.conf.default
 
+# 修改openwrt登陆地址,把下面的192.168.2.106修改成你想要的就可以了
+sed -i 's/192.168.1.1/192.168.2.106/g' package/base-files/files/bin/config_generate
+
+# 修改主机名字，把Unicorn修改你喜欢的就行（不能纯数字或者使用中文）
+sed -i "/uci commit system/i\uci set system.@system[0].hostname='OpenWrt-King'" package/lean/default-settings/files/zzz-default-settings
+sed -i "s/hostname='OpenWrt'/hostname='OpenWrt-King'/g" ./package/base-files/files/bin/config_generate
+
 # Add a feed source
 sed -i '$a src-git nas https://github.com/linkease/nas-packages.git;master' feeds.conf.default
 sed -i '$a src-git nas_luci https://github.com/linkease/nas-packages-luci.git;main' feeds.conf.default
