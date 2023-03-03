@@ -14,7 +14,7 @@
 # curl -fsSL  https://raw.githubusercontent.com/siropboy/other/master/patch/poweroff/system.lua > ./feeds/luci/modules/luci-mod-admin-full/luasrc/controller/admin/system.lua
 # curl -fsSL  https://raw.githubusercontent.com/firkerword/KPR/main/logo.jpg > .package/luci-app-serverchan/root/usr/bin/serverchan/api/logo.jpg
 # Modify default IP
-# sed -i 's/192.168.2.106/192.168.50.5/g' package/base-files/files/bin/config_generate
+sed -i 's/192.168.2.1/192.168.2.106/g' package/base-files/files/bin/config_generate
 
 sed -i 's/luci-theme-bootstrap/luci-theme-argon/g' ./feeds/luci/collections/luci/Makefile
 rm -rf ./package/diy-ziyong/theme
