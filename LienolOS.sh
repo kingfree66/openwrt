@@ -23,6 +23,9 @@ git clone https://github.com/jerrykuku/luci-theme-argon.git package/luci-theme-a
 git clone https://github.com/jerrykuku/luci-app-argon-config.git package/luci-app-argon-config
 # git clone https://github.com/QiuSimons/openwrt-mos.git package/openwrt-mos
 git clone https://github.com/fw876/helloworld.git package/ssr
+git clone https://github.com/jerrykuku/lua-maxminddb.git  package/lua-maxminddb
+git clone https://github.com/jerrykuku/luci-app-vssr.git  package/luci-app-vssr
+git clone https://github.com/destan19/OpenAppFilter.git package/OpenAppFilter
 git clone https://github.com/firker/diy-ziyong.git package/diy-ziyong
 # git clone https://github.com/tty228/luci-app-serverchan.git package/luci-app-serverchan
 # git clone https://github.com/kiddin9/openwrt-bypass.git package/openwrt-bypass
