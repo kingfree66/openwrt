@@ -151,7 +151,7 @@ jobs:
         path: ${{ env.FIRMWARE }}
         
     - name: 创建release标签
-     id: tag
+      id: tag
       if: env.UPLOAD_RELEASE == 'true' && !cancelled()
       run: |
         echo "release_tag=${{ env.TAG_TIME }}" >> $GITHUB_OUTPUT
