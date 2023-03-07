@@ -50,8 +50,11 @@ git clone https://github.com/immortalwrt/homeproxy.git package/luci-app-homeprox
 # svn co https://github.com/kiddin9/openwrt-packages/trunk/adguardhome package/adguardhome
 # svn co https://github.com/kiddin9/openwrt-packages/trunk/luci-app-adguardhome package/luci-app-adguardhome
 svn co https://github.com/vernesong/OpenClash/trunk/luci-app-openclash package/luci-app-openclash
-# find ./ | grep Makefile | grep v2ray-geodata | xargs rm -f
+
 # find ./ | grep Makefile | grep mosdns | xargs rm -f
-# git clone https://github.com/sbwml/luci-app-mosdns package/mosdns
+# git clone https://github.com/firkerword/openwrt-mos.git package/openwrt-mos
+# git clone https://github.com/QiuSimons/openwrt-mos.git package/openwrt-mos
+# find ./ | grep Makefile | grep v2ray-geodata | xargs rm -f
+
 git clone -b v5-dev https://github.com/sbwml/luci-app-mosdns.git package/mosdns
 # git clone https://github.com/sbwml/v2ray-geodata package/v2ray-geodata
