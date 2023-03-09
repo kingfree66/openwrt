@@ -36,7 +36,7 @@ find ./ | grep Makefile | grep mosdns | xargs rm -f
 # git clone https://github.com/firkerword/openwrt-mos.git package/openwrt-mos
 git clone https://github.com/QiuSimons/openwrt-mos.git package/openwrt-mos
 # find ./ | grep Makefile | grep v2ray-geodata | xargs rm -f
-git clone https://github.com/xiaorouji/openwrt-passwall.git package/openwrt-passwall
+# git clone https://github.com/xiaorouji/openwrt-passwall.git package/openwrt-passwall
 # git clone -b luci https://github.com/xiaorouji/openwrt-passwall.git package/passwall
 git clone -b luci-smartdns-new-version https://github.com/xiaorouji/openwrt-passwall.git package/passwall
 # git clone https://github.com/firkerword/luci-app-mosdns.git package/mosdns
