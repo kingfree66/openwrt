@@ -7,8 +7,8 @@
 # Author: P3TERX
 # Blog: https://p3terx.com
 #============================================================
-# sed -i '/DTS_DIR:=$(LINUX_DIR)/a\BUILD_DATE_PREFIX := $(shell date +'%F')' ./include/image.mk
-# sed -i 's/IMG_PREFIX:=/IMG_PREFIX:=$(BUILD_DATE_PREFIX)-/g' ./include/image.mk
+sed -i '/DTS_DIR:=$(LINUX_DIR)/a\BUILD_DATE_PREFIX := $(shell date +'%F')' ./include/image.mk
+sed -i 's/IMG_PREFIX:=/IMG_PREFIX:=$(BUILD_DATE_PREFIX)-/g' ./include/image.mk
 
 # curl -fsSL  https://raw.githubusercontent.com/siropboy/other/master/patch/poweroff/poweroff.htm > ./feeds/luci/modules/luci-mod-admin-full/luasrc/view/admin_system/poweroff.htm 
 # curl -fsSL  https://raw.githubusercontent.com/siropboy/other/master/patch/poweroff/system.lua > ./feeds/luci/modules/luci-mod-admin-full/luasrc/controller/admin/system.lua
@@ -20,12 +20,9 @@ rm -rf ./package/diy-ziyong/theme
 rm -rf ./package/diy-ziyong/luci-app-wrtbwmon-zh
 rm -rf ./package/diy-ziyong/wrtbwmon
 # rm -rf ./package/diy-ziyong/adguardhome
+rm -rf ./feeds/luci/themes/luci-theme-argon
 rm -rf ./feeds/packages/net/adguardhome
 rm -rf ./feeds/packages/net/smartdns
 rm -rf ./feeds/packages/net/mosdns
-# rm -rf ./feeds/luci/applications/luci-app-passwall
-# rm -rf ./feeds/luci/applications/luci-app-ssr-plus
-# rm -rf ./feeds/luci/applications/luci-app-openclash
-# rm -rf ./feeds/luci/applications/luci-app-adbyby-plus
 rm -rf ./feeds/packages/lang/golang
 svn export https://github.com/sbwml/packages_lang_golang/branches/19.x feeds/packages/lang/golang
