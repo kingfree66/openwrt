@@ -23,9 +23,9 @@ env:
   REPO_URL: https://git.openwrt.org/openwrt/openwrt.git
   REPO_BRANCH: openwrt-21.02
   FEEDS_CONF: feeds.conf.default
-  CONFIG_FILE: Project.config
-  DIY_P1_SH: Project.sh
-  DIY_P2_SH: Project2.sh
+  CONFIG_FILE: openwrt.config
+  DIY_P1_SH: openwrt.sh
+  DIY_P2_SH: openwrt2.sh
   SSH_ACTIONS: false
   UPLOAD_BIN_DIR: true
   UPLOAD_FIRMWARE: true
