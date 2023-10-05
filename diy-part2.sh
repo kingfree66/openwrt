@@ -10,18 +10,21 @@
 
 curl -fsSL  https://raw.githubusercontent.com/firkerword/KPR/main/logo.jpg > ./package/luci-app-serverchan/root/usr/bin/serverchan/api/logo.jpg
 curl -fsSL  https://raw.githubusercontent.com/firkerword/KPR/main/cus_config.yaml > ./package/openwrt-mos/luci-app-mosdns/root/etc/mosdns/cus_config.yaml
-# sed -i 's/luci-theme-bootstrap/luci-theme-opentomcat/g' ./feeds/luci/collections/luci/Makefile
+# rm -rf ./feeds/luci/applications/luci-app-qbittorrent
 rm -rf ./feeds/luci/applications/luci-app-serverchan
 rm -rf ./feeds/luci/applications/luci-app-mosdns
 # rm -rf ./package/diy-ziyong/adguardhome
 rm -rf ./package/diy-ziyong/smartdns
-rm -rf ./feeds/packages/net/adguardhom
+rm -rf ./feeds/packages/net/adguardhome
 rm -rf ./feeds/packages/net/smartdns
-rm -rf ./feeds/packages/net/mosdns
-# rm -rf ./package/mosdns/mosdns
+#rm -rf ./feeds/packages/net/mosdns
+# rm -rf ./package/diy-ziyong/adguardhome
 rm -rf ./feeds/luci/themes/luci-theme-argon
-# rm -rf ./package/openwrt-passwall/v2ray-geodata
-rm -rf ./package/ssr/v2ray-geodata
+rm -rf ./feeds/luci/applications/luci-app-wrtbwmon
+rm -rf .package/sirpdboy-package/smartdns
+rm -rf .package/sirpdboy-package/adguardhome
+rm -rf .package/sirpdboy-package/luci-app-dockerman
+rm -rf .package/sirpdboy-package/luci-app-autotimeset
 # rm -rf ./feeds/packages/net/https-dns-proxy
 # svn co https://github.com/Lienol/openwrt-packages/trunk/net/https-dns-proxy feeds/packages/net/https-dns-proxy
 # rm -rf feeds/packages/lang/golang
