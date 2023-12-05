@@ -51,8 +51,7 @@ git clone https://github.com/firkerword/smartdns.git package/smartdns
 # svn co https://github.com/kiddin9/openwrt-packages/trunk/luci-app-adguardhome package/luci-app-adguardhome
 # svn co https://github.com/vernesong/OpenClash/trunk/luci-app-openclash package/luci-app-openclash
 git clone https://github.com/destan19/OpenAppFilter.git package/OpenAppFilter
-git clone https://github.com/jerrykuku/luci-app-vssr.git
-git clone https://github.com/jerrykuku/lua-maxminddb.git
+https://github.com/OpenWrt-Actions/luci-app-vssr.git
 find ./ | grep Makefile | grep v2ray-geodata | xargs rm -f
 find ./ | grep Makefile | grep mosdns | xargs rm -f
 
