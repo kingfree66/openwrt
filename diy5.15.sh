@@ -46,8 +46,8 @@ git clone https://github.com/firkerword/luci-app-smartdns.git package/luci-app-s
 git clone https://github.com/firkerword/smartdns.git package/smartdns
 # git clone https://github.com/firkerword/luci-app-mosdns.git package/OpenWrt-mosdns
 # git clone https://github.com/immortalwrt/homeproxy.git package/luci-app-homeproxy
-# git clone https://github.com/linkease/istore.git package/istore
-# git clone https://github.com/linkease/istore-ui.git package/istore-ui
+git clone https://github.com/linkease/istore.git package/istore
+git clone https://github.com/linkease/istore-ui.git package/istore-ui
 # svn co https://github.com/kiddin9/openwrt-packages/trunk/adguardhome package/adguardhome
 # svn co https://github.com/kiddin9/openwrt-packages/trunk/luci-app-adguardhome package/luci-app-adguardhome
 # svn co https://github.com/vernesong/OpenClash/trunk/luci-app-openclash package/luci-app-openclash
