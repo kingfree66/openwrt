@@ -16,8 +16,8 @@ on:
         description: 'SSH connection to Actions'
         required: false
         default: 'false'
-  # schedule:
-   #  - cron: 0 18 */3 * *
+  schedule:
+    - cron: 0 22 */3 * * 
 
 env:
   REPO_URL: https://github.com/coolsnowwolf/lede
@@ -41,10 +41,29 @@ jobs:
     - name: 检查项目分支
       uses: actions/checkout@main
 
+    - name: 清理磁盘空间
+      uses: jlumbroso/free-disk-space@main
+      with:
+        # this might remove tools that are actually needed,
+        # if set to "true" but frees about 6 GB
+        tool-cache: false
+
+        # all of these default to true, but feel free to set to
+        # "false" if necessary for your workflow
+        android: true
+        dotnet: true
+        haskell: true
+        large-packages: true
+        docker-images: true
+        swap-storage: true
+        
     - name: 安装编译环境
       env:
         DEBIAN_FRONTEND: noninteractive
       run: |
+        df -hT
+        sudo rm -rf /usr/share/dotnet /etc/mysql /etc/php /etc/apt/sources.list.d /usr/local/lib/android
+        sudo -E apt-get -y purge azure-cli ghc* zulu* hhvm llvm* firefox google* dotnet* powershell openjdk* adoptopenjdk* mysql* php* mongodb* dotnet* moby* snapd* || true
         sudo rm -rf /etc/apt/sources.list.d/* /usr/share/dotnet /usr/local/lib/android /opt/ghc
         sudo -E apt-get -qq update
         sudo -E apt-get -qq install $(curl -fsSL https://github.com/firkerword/openwrt-list/raw/master/depends-ubuntu-2004)
@@ -53,7 +72,8 @@ jobs:
         sudo timedatectl set-timezone "$TZ"
         sudo mkdir -p /workdir
         sudo chown $USER:$GROUPS /workdir
-
+        df -hT
+        
     - name: 下载固件源码
       working-directory: /workdir
       run: |
@@ -63,13 +83,12 @@ jobs:
         cd openwrt
         useVersionInfo=$(git show -s --date=short --format="%0AAuthor: %an%0Adate: %cd%0Acommit: %s%0Acommit hash: %H")
         echo "useVersionInfo=$useVersionInfo" >> $GITHUB_ENV
-        echo "DATE=$(date "+%Y-%m-%d %H:%M:%S")" >> $GITHUB_ENV
+        echo "DATE=$(date "+%Y-%m-%d %H:%M:%S")" >> $GITHUB_ENV   
         
     - name: 加载自定义设置
       run: |
         [ -e $FEEDS_CONF ] && mv $FEEDS_CONF openwrt/feeds.conf.default
         chmod +x $DIY_P1_SH
-
         cd openwrt
         $GITHUB_WORKSPACE/$DIY_P1_SH
         
@@ -125,7 +144,7 @@ jobs:
       if: steps.compile.outputs.status == 'success' && env.UPLOAD_BIN_DIR == 'true'
       with:
         name: OpenWrt_bin${{ env.DEVICE_NAME }}${{ env.FILE_DATE }}
-        path: openwrt/bin/packages/x86_64/base
+        path: openwrt/bin/packages/x86_64
 
     - name: 整理编译好的固件
       id: organize
