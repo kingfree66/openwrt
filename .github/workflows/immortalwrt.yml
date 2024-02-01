@@ -145,30 +145,29 @@ jobs:
       uses: actions/upload-artifact@main
       if: steps.organize.outputs.status == 'success' && !cancelled()
       with:
-        name: openwrt-immortalwrt${{ env.DEVICE_NAME }}${{ env.FILE_DATE }}
+        name: OpenWrt_5.15${{ env.DEVICE_NAME }}${{ env.FILE_DATE }}
         path: ${{ env.FIRMWARE }}
-        
-    - name: 创建release标签
-      id: tag
-      if: env.UPLOAD_RELEASE == 'true' && !cancelled()
-      run: |
-        echo "release_tag=${{ env.TAG_TIME }}" >> $GITHUB_OUTPUT
-        touch release.txt
-        echo "status=success" >> $GITHUB_OUTPUT
-        
+          
     - name: 发布至release
-      uses: softprops/action-gh-release@v1
-      if: steps.tag.outputs.status == 'success' && !cancelled()
-      env:
-        GITHUB_TOKEN: ${{ secrets.RELEASE_TOKEN }}
+      id: release
+      uses: ncipollo/release-action@v1
+      if: env.UPLOAD_RELEASE == 'true' && !cancelled()
       with:
         name: ${{ env.FILE_TIME }} 「 openwrt-immortalwrt-X86-64 」
-        tag_name: ${{ steps.tag.outputs.release_tag }}
-        body_path: release.txt
-        files: ${{ env.FIRMWARE }}/*
+        allowUpdates: true
+        tag: ${{ env.TAG_TIME }}
+        commit: main
+        token: ${{ secrets.RELEASE_TOKEN }}
+        artifacts: ${{ env.FIRMWARE }}/*
+
+    - name: 清理旧的workflow
+      uses: FunctionXJB/delete-workflow-runs@main
+      with:
+        retain_days: 10
+        keep_minimum_runs: 10
 
     - name: 删除旧的Releases
-      uses: dev-drprasad/delete-older-releases@v0.1.0
+      uses: dev-drprasad/delete-older-releases@v0.2.1
       if: env.UPLOAD_RELEASE == 'true' && !cancelled()
       with:
         keep_latest: 9
