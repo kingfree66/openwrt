@@ -35,7 +35,6 @@ sed -i 's/192.168.1.1/192.168.2.106/g' package/base-files/files/bin/config_gener
 sed -i "/uci commit system/i\uci set system.@system[0].hostname='OpenWrt-King'" package/lean/default-settings/files/zzz-default-settings
 sed -i "s/hostname='OpenWrt'/hostname='OpenWrt-King'/g" ./package/base-files/files/bin/config_generate
 
-rm -rf package/custom; mkdir package/custom
 # Add a feed source
 # sed -i '$a src-git lienol https://github.com/Lienol/openwrt-package' feeds.conf.default
 # sed -i '$a src-git passwall https://github.com/xiaorouji/openwrt-passwall' feeds.conf.default
@@ -57,7 +56,7 @@ git clone https://github.com/xiaorouji/openwrt-passwall-packages.git package/ope
 git clone https://github.com/xiaorouji/openwrt-passwall.git package/passwall
 # git clone https://github.com/dwj0/luci-app-sms-tool.git package/luci-app-sms-tool
 # git clone -b master https://github.com/vernesong/OpenClash.git package/OpenClash
-# git clone https://github.com/destan19/OpenAppFilter.git package/OpenAppFilter
+git clone https://github.com/destan19/OpenAppFilter.git package/OpenAppFilter
 git clone https://github.com/firkerword/luci-app-parentcontrol.git package/parentcontrol
 git clone https://github.com/firkerword/luci-app-smartdns.git package/luci-app-smartdns
 git clone https://github.com/firkerword/smartdns.git package/smartdns
@@ -67,7 +66,7 @@ git clone https://github.com/firkerword/smartdns.git package/smartdns
 # git clone https://github.com/linkease/istore-ui.git package/istore-ui
 # svn co https://github.com/kiddin9/openwrt-packages/trunk/adguardhome package/adguardhome
 # svn co https://github.com/kiddin9/openwrt-packages/trunk/luci-app-adguardhome package/luci-app-adguardhome
-merge_package https://github.com/vernesong/OpenClash OpenClash/luci-app-openclash
+# merge_package https://github.com/vernesong/OpenClash OpenClash/luci-app-openclash
 find ./ | grep Makefile | grep v2ray-geodata | xargs rm -f
 find ./ | grep Makefile | grep mosdns | xargs rm -f
 
