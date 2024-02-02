@@ -13,13 +13,6 @@
 # Uncomment a feed source
 # sed -i 's/^#\(.*helloworld\)/\1/' feeds.conf.default
 
-# 修改openwrt登陆地址,把下面的192.168.2.106修改成你想要的就可以了
-sed -i 's/192.168.1.1/192.168.2.106/g' package/base-files/files/bin/config_generate
-
-# 修改主机名字，把Unicorn修改你喜欢的就行（不能纯数字或者使用中文）
-sed -i "/uci commit system/i\uci set system.@system[0].hostname='OpenWrt-King'" package/lean/default-settings/files/zzz-default-settings
-sed -i "s/hostname='immortalwrt'/hostname='OpenWrt-King'/g" ./package/base-files/files/bin/config_generate
-
 function merge_package(){
     repo=`echo $1 | rev | cut -d'/' -f 1 | rev`
     pkg=`echo $2 | rev | cut -d'/' -f 1 | rev`
@@ -63,6 +56,3 @@ git clone https://github.com/sbwml/v2ray-geodata package/v2ray-geodata
 # svn co https://github.com/kiddin9/openwrt-packages/trunk/adguardhome package/adguardhome
 merge_package master https://github.com/kiddin9/openwrt-packages openwrt-packages/luci-app-wrtbwmon
 merge_package master https://github.com/kiddin9/openwrt-packages openwrt-packages/wrtbwmon
-svn co https://github.com/kiddin9/openwrt-packages/trunk/wrtbwmon package/wrtbwmon
-git clone https://github.com/destan19/OpenAppFilter.git package/OpenAppFilter
-svn co https://github.com/vernesong/OpenClash/trunk/luci-app-openclash package/luci-app-openclash
