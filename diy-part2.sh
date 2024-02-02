@@ -16,7 +16,7 @@ sed -i "s/hostname='OpenWrt'/hostname='OpenWrt-King'/g" ./package/base-files/fil
 # curl -fsSL  https://raw.githubusercontent.com/firkerword/KPR/main/logo.jpg > .package/luci-app-serverchan/root/usr/bin/serverchan/api/logo.jpg
 # wget https://raw.githubusercontent.com/firkerword/KPR/main/cus_config.yaml -O ./package/openwrt-mos/luci-app-mosdns/root/etc/mosdns/cus_config.yaml
 # Modify default IP
-sed -i 's/192.168.2.106/192.168.50.5/g' package/base-files/files/bin/config_generate
+# sed -i 's/192.168.2.106/192.168.50.5/g' package/base-files/files/bin/config_generate
 # rm -rf ./feeds/luci/applications/luci-app-qbittorrent
 rm -rf ./feeds/luci/applications/luci-app-serverchan
 rm -rf ./feeds/luci/applications/luci-app-mosdns
