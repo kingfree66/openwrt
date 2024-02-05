@@ -177,19 +177,3 @@ jobs:
       env:
         GITHUB_TOKEN: ${{ secrets.RELEASE_TOKEN }}
         
-- name: 释放磁盘空间
-  uses: jlumbroso/free-disk-space@main
-  with:
-    # this might remove tools that are actually needed,
-    # if set to "true" but frees about 6 GB
-    tool-cache: true
-    # all of these default to true, but feel free to set to
-    # "false" if necessary for your workflow
-    android: true
-    dotnet: true
-    haskell: true
-    large-packages: true
-    swap-storage: true
-    
-    - name: Checkout
-  uses: actions/checkout@main
