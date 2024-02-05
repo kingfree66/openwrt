@@ -176,6 +176,7 @@ jobs:
         delete_tags: true
       env:
         GITHUB_TOKEN: ${{ secrets.RELEASE_TOKEN }}
+        
 - name: 释放磁盘空间
   uses: jlumbroso/free-disk-space@main
   with:
@@ -190,6 +191,3 @@ jobs:
     large-packages: true
     swap-storage: true
     steps:
-    
-- name: Checkout
-  uses: actions/checkout@main
