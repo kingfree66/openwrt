@@ -1,36 +1,19 @@
-#=================================================
-# https://github.com/P3TERX/Actions-OpenWrt
-# Description: Build OpenWrt using GitHub Actions
-# Lisence: MIT
-# Author: P3TERX
-# Blog: https://p3terx.com
-#=================================================
-
 name: OpenWrt-6.6
 
 on:
   repository_dispatch:
   workflow_dispatch:
-    inputs:
-      ssh:
-        description: 'SSH connection to Actions'
-        required: false
-        default: 'false'
   # schedule:
-   #  - cron: 0 18 */3 * *
+   # - cron: 0 23 5 * ?
 
 env:
   REPO_URL: https://github.com/coolsnowwolf/lede
   REPO_BRANCH: master
-  FEEDS_CONF: feeds.conf.default
   CONFIG_FILE: 6.6.config
-  DIY_P1_SH: diy6.6.sh
-  DIY_P2_SH: diy-part2.sh
-  SSH_ACTIONS: false
-  UPLOAD_BIN_DIR: true
+  DIY_SH: diy6.6.sh
   UPLOAD_FIRMWARE: true
-  UPLOAD_WETRANSFER: false
   UPLOAD_RELEASE: true
+  FILE_NAME: diy-part2.sh
   TZ: Asia/Shanghai
 
 jobs:
@@ -153,7 +136,7 @@ jobs:
       id: release
       uses: ncipollo/release-action@v1
       with:
-        name: R${{ env.DATE }} 「 openwrt-6.6-X86-64 」
+        name: R${{ env.DATE }} for 「 openwrt-6.6-X86-64 」
         allowUpdates: true
         tag: ${{ env.FILE_NAME }}
         commit: master
@@ -161,4 +144,3 @@ jobs:
         body: |
           This is OpenWrt firmware for ${{ env.FILE_NAME }}
         artifacts: ${{ env.FIRMWARE }}/*
-
