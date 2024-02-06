@@ -136,7 +136,7 @@ jobs:
       id: release
       uses: ncipollo/release-action@v1
       with:
-        name: R${{ env.DATE }} for 「 openwrt-6.6-X86-64 」
+        name: R${{ env.DATE }} 「 openwrt-6.6-X86-64 」
         allowUpdates: true
         tag: ${{ env.FILE_NAME }}
         commit: master
