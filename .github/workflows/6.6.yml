@@ -135,11 +135,14 @@ jobs:
     - name: Create release
       id: release
       uses: ncipollo/release-action@v1
+      if: env.UPLOAD_RELEASE == 'true' && !cancelled()
       with:
-        name: R${{ env.DATE }} 「 openwrt-6.6-X86-64 」
+        name: ${{ env.FILE_TIME }} 「 openwrt-6.6-X86-64 」
         allowUpdates: true
-        tag: ${{ env.FILE_NAME }}
-        commit: master
+        tag: ${{ env.TAG_TIME }}
+        commit: main
+        token: ${{ secrets.RELEASE_TOKEN }}
+        artifacts: ${{ env.FIRMWARE }}/*
         token: ${{ secrets.RELEASE_TOKEN }}
         body: |
           This is OpenWrt firmware for ${{ env.FILE_NAME }}
