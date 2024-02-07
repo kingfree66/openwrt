@@ -11,6 +11,7 @@
 sed -i 's/KERNEL_PATCHVER:=6.1/KERNEL_PATCHVER:=5.10/g' ./target/linux/x86/Makefile
 sed -i 's/KERNEL_PATCHVER:=5.15/KERNEL_PATCHVER:=5.10/g' ./target/linux/x86/Makefile
 
+
 # 修改openwrt登陆地址,把下面的192.168.2.106修改成你想要的就可以了
 sed -i 's/192.168.1.1/192.168.2.106/g' package/base-files/files/bin/config_generate
 
@@ -46,12 +47,13 @@ git clone https://github.com/firkerword/luci-app-smartdns.git package/luci-app-s
 git clone https://github.com/firkerword/smartdns.git package/smartdns
 # git clone https://github.com/firkerword/luci-app-mosdns.git package/OpenWrt-mosdns
 # git clone https://github.com/immortalwrt/homeproxy.git package/luci-app-homeproxy
-# git clone https://github.com/linkease/istore.git package/istore
-# git clone https://github.com/linkease/istore-ui.git package/istore-ui
+git clone https://github.com/linkease/istore.git package/istore
+git clone https://github.com/linkease/istore-ui.git package/istore-ui
 # svn co https://github.com/kiddin9/openwrt-packages/trunk/adguardhome package/adguardhome
 # svn co https://github.com/kiddin9/openwrt-packages/trunk/luci-app-adguardhome package/luci-app-adguardhome
 # svn co https://github.com/vernesong/OpenClash/trunk/luci-app-openclash package/luci-app-openclash
 git clone https://github.com/destan19/OpenAppFilter.git package/OpenAppFilter
+https://github.com/OpenWrt-Actions/luci-app-vssr.git
 find ./ | grep Makefile | grep v2ray-geodata | xargs rm -f
 find ./ | grep Makefile | grep mosdns | xargs rm -f
 
