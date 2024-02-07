@@ -17,7 +17,7 @@ on:
         required: false
         default: 'false'
   # schedule:
-   #  - cron: 0 18 */3 * *
+    # - cron: 0 18 */3 * *
 
 env:
   REPO_URL: https://github.com/coolsnowwolf/lede
@@ -41,11 +41,32 @@ jobs:
     - name: 检查项目分支
       uses: actions/checkout@main
 
+    - name: 清理磁盘空间
+      uses: jlumbroso/free-disk-space@main
+      with:
+        # this might remove tools that are actually needed,
+        # if set to "true" but frees about 6 GB
+        tool-cache: false
+
+        # all of these default to true, but feel free to set to
+        # "false" if necessary for your workflow
+        android: true
+        dotnet: true
+        haskell: true
+        large-packages: true
+        docker-images: true
+        swap-storage: true
+
     - name: 安装编译环境
       env:
         DEBIAN_FRONTEND: noninteractive
       run: |
-        sudo rm -rf /etc/apt/sources.list.d/* /usr/share/dotnet /usr/local/lib/android /opt/ghc
+        df -hT $PWD
+        sudo swapoff -a
+        sudo rm -f /swapfile
+        sudo apt clean
+        sudo rm -rf /usr/share/dotnet /etc/mysql /etc/php /etc/apt/sources.list.d /etc/apt/sources.list.d/* /usr/share/dotnet /usr/local/lib/android /opt/ghc
+        sudo -E apt-get -y purge azure-cli ghc* zulu* hhvm llvm* firefox google* dotnet* powershell openjdk* adoptopenjdk* mysql* php* mongodb* dotnet* moby* snapd* || true
         sudo -E apt-get -qq update
         sudo -E apt-get -qq install $(curl -fsSL https://github.com/firkerword/openwrt-list/raw/master/depends-ubuntu-2004)
         sudo -E apt-get -qq autoremove --purge
@@ -53,7 +74,7 @@ jobs:
         sudo timedatectl set-timezone "$TZ"
         sudo mkdir -p /workdir
         sudo chown $USER:$GROUPS /workdir
-
+          
     - name: 下载固件源码
       working-directory: /workdir
       run: |
@@ -72,7 +93,6 @@ jobs:
 
         cd openwrt
         $GITHUB_WORKSPACE/$DIY_P1_SH
-        
     - name: 下载插件
       run: cd openwrt && ./scripts/feeds update -a
 
@@ -149,7 +169,7 @@ jobs:
       with:
         name: OpenWrt_5.15${{ env.DEVICE_NAME }}${{ env.FILE_DATE }}
         path: ${{ env.FIRMWARE }}
-          
+        
     - name: 发布至release
       id: release
       uses: ncipollo/release-action@v1
@@ -165,7 +185,7 @@ jobs:
     - name: 清理旧的workflow
       uses: FunctionXJB/delete-workflow-runs@main
       with:
-        retain_days: 10
+        retain_days: 180
         keep_minimum_runs: 10
 
     - name: 删除旧的Releases
