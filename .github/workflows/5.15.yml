@@ -17,7 +17,7 @@ on:
         required: false
         default: 'false'
   # schedule:
-    # - cron: 0 18 */3 * *
+   # - cron: 0 18 */3 * *
 
 env:
   REPO_URL: https://github.com/coolsnowwolf/lede
@@ -25,7 +25,7 @@ env:
   FEEDS_CONF: feeds.conf.default
   CONFIG_FILE: 5.15.config
   DIY_P1_SH: diy5.15.sh
-  DIY_P2_SH: diy-part2.sh
+  DIY_P2_SH: diy-part.sh
   SSH_ACTIONS: false
   UPLOAD_BIN_DIR: true
   UPLOAD_FIRMWARE: true
@@ -106,7 +106,6 @@ jobs:
         chmod +x $DIY_P2_SH
         cd openwrt
         $GITHUB_WORKSPACE/$DIY_P2_SH
-        
     - name: SSH链接管理
       uses: P3TERX/ssh2actions@v1.0.0
       if: (github.event.inputs.ssh == 'true' && github.event.inputs.ssh  != 'false') || contains(github.event.action, 'ssh')
@@ -122,7 +121,6 @@ jobs:
         make download -j8
         find dl -size -1024c -exec ls -l {} \;
         find dl -size -1024c -exec rm -f {} \;
-        
     - name: 开始编译固件
       id: compile
       run: |
