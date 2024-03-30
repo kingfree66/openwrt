@@ -6,7 +6,7 @@
 # Blog: https://p3terx.com
 #=================================================
 
-name: OpenWrt-6.6
+name: OpenWrt-lede6.6
 
 on:
   repository_dispatch:
@@ -17,7 +17,7 @@ on:
         required: false
         default: 'false'
   # schedule:
-   #  - cron: 0 22 */3 * * 
+    # - cron: 0 22 */3 * * 
 
 env:
   REPO_URL: https://github.com/coolsnowwolf/lede
@@ -168,7 +168,7 @@ jobs:
       with:
         name: OpenWrt_6.6D${{ env.DEVICE_NAME }}${{ env.FILE_DATE }}
         path: ${{ env.FIRMWARE }}
-    
+
     - name: 发布至release
       id: release
       uses: ncipollo/release-action@v1
