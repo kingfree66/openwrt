@@ -16,8 +16,8 @@ on:
         description: 'SSH connection to Actions'
         required: false
         default: 'false'
-#  schedule:
-#    - cron: 0 21 */7 * * 
+  # schedule:
+    # - cron: 0 21 */5 * * 
 
 env:
   REPO_URL: https://github.com/immortalwrt/immortalwrt
@@ -30,7 +30,7 @@ env:
   UPLOAD_BIN_DIR: true
   UPLOAD_FIRMWARE: true
   UPLOAD_COWTRANSFER: false
-  UPLOAD_WETRANSFER: true
+  UPLOAD_WETRANSFER: false
   UPLOAD_RELEASE: true
   TZ: Asia/Shanghai
 
@@ -39,6 +39,52 @@ jobs:
     runs-on: ubuntu-20.04
 
     steps:
+    - name: Before freeing up disk space
+      run: |
+        echo "Before freeing up disk space"
+        echo "=============================================================================="
+        df -hT
+        echo "=============================================================================="
+
+    - name: "Optimize Disk Space"
+      uses: "hugoalh/disk-space-optimizer-ghaction@v0.8.0"
+      with:
+        operate_sudo: "True"
+        general_include: ".+"
+        general_exclude: |-
+          ^GCC$
+          ^G\+\+$
+          Clang
+          LLVM
+        docker_include: ".+"
+        docker_prune: "True"
+        docker_clean: "True"
+        apt_prune: "True"
+        apt_clean: "True"
+        homebrew_prune: "True"
+        homebrew_clean: "True"
+        npm_prune: "True"
+        npm_clean: "True"
+        os_swap: "True"
+
+    - name: Freeing up disk space
+      uses: easimon/maximize-build-space@master
+      with: 
+        root-reserve-mb: 2048
+        swap-size-mb: 1
+        remove-dotnet: 'true'
+        remove-android: 'true'
+        remove-haskell: 'true'
+        remove-codeql: 'true'
+        remove-docker-images: 'true'
+
+    - name: Free up disk space complete
+      run: |
+        echo "Free up disk space complete"
+        echo "=============================================================================="
+        df -hT
+        echo "=============================================================================="
+        
     - name: 检查项目分支
       uses: actions/checkout@main
 
@@ -46,23 +92,19 @@ jobs:
       env:
         DEBIAN_FRONTEND: noninteractive
       run: |
-        sudo rm -rf /etc/apt/sources.list.d/* /usr/share/dotnet /usr/local/lib/android /opt/ghc
+        df -hT $PWD
+        sudo -E apt-get -qq update
         sudo bash -c 'bash <(curl -s https://build-scripts.immortalwrt.eu.org/init_build_environment.sh)'
         sudo -E apt-get -qq autoremove --purge
         sudo -E apt-get -qq clean
         sudo timedatectl set-timezone "$TZ"
-        sudo mkdir -p /workdir
-        sudo chown $USER:$GROUPS /workdir
+        sudo chown $USER:$GROUPS $GITHUB_WORKSPACE
         
     - name: 下载固件源码
-      working-directory: /workdir
+      working-directory: ./
       run: |
-        df -hT $PWD
         git clone $REPO_URL -b $REPO_BRANCH openwrt
-        ln -sf /workdir/openwrt $GITHUB_WORKSPACE/openwrt
         cd openwrt
-        useVersionInfo=$(git show -s --date=short --format="%0AAuthor: %an%0Adate: %cd%0Acommit: %s%0Acommit hash: %H")
-        echo "useVersionInfo=$useVersionInfo" >> $GITHUB_ENV
         echo "DATE=$(date "+%Y-%m-%d %H:%M:%S")" >> $GITHUB_ENV
         
     - name: 加载自定义设置
@@ -117,7 +159,11 @@ jobs:
         
     - name: 查看磁盘使用情况
       if: (!cancelled())
-      run: df -hT
+      run: |
+        echo "Free up disk space complete"
+        echo "=============================================================================="
+        df -hT
+        echo "=============================================================================="
 
     - name: 上传bin压缩目录
       uses: actions/upload-artifact@main
@@ -146,9 +192,9 @@ jobs:
       uses: actions/upload-artifact@main
       if: steps.organize.outputs.status == 'success' && !cancelled()
       with:
-        name: OpenWrt_5.15${{ env.DEVICE_NAME }}${{ env.FILE_DATE }}
+        name: openwrt-immortalwrt${{ env.DEVICE_NAME }}${{ env.FILE_DATE }}
         path: ${{ env.FIRMWARE }}
-          
+        
     - name: 发布至release
       id: release
       uses: ncipollo/release-action@v1
@@ -161,17 +207,12 @@ jobs:
         token: ${{ secrets.RELEASE_TOKEN }}
         artifacts: ${{ env.FIRMWARE }}/*
 
-    - name: 清理旧的workflow
-      uses: FunctionXJB/delete-workflow-runs@main
-      with:
-        retain_days: 10
-        keep_minimum_runs: 10
-
     - name: 删除旧的Releases
-      uses: dev-drprasad/delete-older-releases@v0.2.1
+      uses: dev-drprasad/delete-older-releases@v0.3.2
       if: env.UPLOAD_RELEASE == 'true' && !cancelled()
       with:
         keep_latest: 9
         delete_tags: true
       env:
         GITHUB_TOKEN: ${{ secrets.RELEASE_TOKEN }}
+        
