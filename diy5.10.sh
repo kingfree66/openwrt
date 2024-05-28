@@ -23,7 +23,8 @@ sed -i "s/hostname='OpenWrt'/hostname='OpenWrt-King'/g" ./package/base-files/fil
 # sed -i '$a src-git lienol https://github.com/Lienol/openwrt-package' feeds.conf.default
 # sed -i '$a src-git passwall https://github.com/xiaorouji/openwrt-passwall' feeds.conf.default
 # sed -i '$a src-git jerryk https://github.com/jerrykuku/openwrt-package' feeds.conf.default
-git clone https://github.com/jerrykuku/luci-app-vssr.git  package/luci-app-vssr
+git clone https://github.com/jerrykuku/lua-maxminddb
+git clone https://github.com/jerrykuku/luci-app-vssr.git package/vssr
 git clone https://github.com/fw876/helloworld.git package/ssr
 git clone https://github.com/firker/diy-ziyong.git package/diy-ziyong
 git clone -b 18.06 https://github.com/garypang13/luci-theme-edge.git package/luci-theme-edge
@@ -53,11 +54,11 @@ git clone https://github.com/linkease/istore-ui.git package/istore-ui
 # svn co https://github.com/kiddin9/openwrt-packages/trunk/luci-app-adguardhome package/luci-app-adguardhome
 # svn co https://github.com/vernesong/OpenClash/trunk/luci-app-openclash package/luci-app-openclash
 git clone https://github.com/destan19/OpenAppFilter.git package/OpenAppFilter
-git clone https://github.com/Leo-Jo-My/luci-app-vssr package/luci-app-vssr
-git clone https://github.com/Leo-Jo-My/my package/my
+https://github.com/OpenWrt-Actions/luci-app-vssr.git package/vssr
 find ./ | grep Makefile | grep v2ray-geodata | xargs rm -f
 find ./ | grep Makefile | grep mosdns | xargs rm -f
 
 git clone https://github.com/sbwml/luci-app-mosdns -b v5 package/mosdns
 git clone https://github.com/sbwml/luci-app-dae package/dae
 git clone https://github.com/sbwml/v2ray-geodata package/v2ray-geodata
+merge_package https://github.com/vernesong/OpenClash OpenClash/luci-app-
