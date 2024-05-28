@@ -53,7 +53,8 @@ git clone https://github.com/linkease/istore-ui.git package/istore-ui
 # svn co https://github.com/kiddin9/openwrt-packages/trunk/luci-app-adguardhome package/luci-app-adguardhome
 # svn co https://github.com/vernesong/OpenClash/trunk/luci-app-openclash package/luci-app-openclash
 git clone https://github.com/destan19/OpenAppFilter.git package/OpenAppFilter
-https://github.com/OpenWrt-Actions/luci-app-vssr.git
+git clone https://github.com/Leo-Jo-My/luci-app-vssr package/luci-app-vssr
+git clone https://github.com/Leo-Jo-My/my package/my
 find ./ | grep Makefile | grep v2ray-geodata | xargs rm -f
 find ./ | grep Makefile | grep mosdns | xargs rm -f
 
