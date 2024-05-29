@@ -54,11 +54,11 @@ git clone https://github.com/linkease/istore-ui.git package/istore-ui
 # svn co https://github.com/kiddin9/openwrt-packages/trunk/luci-app-adguardhome package/luci-app-adguardhome
 # svn co https://github.com/vernesong/OpenClash/trunk/luci-app-openclash package/luci-app-openclash
 git clone https://github.com/destan19/OpenAppFilter.git package/OpenAppFilter
-# https://github.com/OpenWrt-Actions/luci-app-vssr.git package/vssr
+https://github.com/OpenWrt-Actions/luci-app-vssr.git package/vssr
 find ./ | grep Makefile | grep v2ray-geodata | xargs rm -f
 find ./ | grep Makefile | grep mosdns | xargs rm -f
 
 git clone https://github.com/sbwml/luci-app-mosdns -b v5 package/mosdns
 git clone https://github.com/sbwml/luci-app-dae package/dae
 git clone https://github.com/sbwml/v2ray-geodata package/v2ray-geodata
-merge_package https://github.com/vernesong/OpenClash OpenClash/luci-app-
+merge_package https://github.com/vernesong/OpenClash OpenClash/luci-app-openclash
