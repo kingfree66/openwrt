@@ -70,8 +70,13 @@ git clone https://github.com/destan19/OpenAppFilter.git package/OpenAppFilter
 https://github.com/OpenWrt-Actions/luci-app-vssr.git package/vssr
 find ./ | grep Makefile | grep v2ray-geodata | xargs rm -f
 find ./ | grep Makefile | grep mosdns | xargs rm -f
-
+rm -rf feeds/packages/lang/golang
+git clone https://github.com/sbwml/packages_lang_golang -b 23.x feeds/packages/lang/golang
+rm -rf feeds/packages/net/v2ray-geodata
 git clone https://github.com/sbwml/luci-app-mosdns -b v5 package/mosdns
+git clone https://github.com/sbwml/v2ray-geodata package/v2ray-geodata
+make menuconfig # choose LUCI -> Applications -> luci-app-mosdns
+make package/mosdns/luci-app-mosdns/compile V=s
 git clone https://github.com/sbwml/luci-app-dae package/dae
 git clone https://github.com/sbwml/v2ray-geodata package/v2ray-geodata
 merge_package https://github.com/vernesong/OpenClash OpenClash/luci-app-openclash
