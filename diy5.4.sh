@@ -10,6 +10,8 @@
 
 sed -i 's/KERNEL_PATCHVER:=6.1/KERNEL_PATCHVER:=5.4/g' ./target/linux/x86/Makefile
 sed -i 's/KERNEL_PATCHVER:=5.15/KERNEL_PATCHVER:=5.4/g' ./target/linux/x86/Makefile
+sed -i 's/^#\(.*luci\)/\1/' feeds.conf.default
+# sed -i '2i src-git luci https://github.com/coolsnowwolf/luci.git' feeds.conf.default
 
 # 修改openwrt登陆地址,把下面的192.168.2.106修改成你想要的就可以了
 sed -i 's/192.168.1.1/192.168.2.106/g' package/base-files/files/bin/config_generate
