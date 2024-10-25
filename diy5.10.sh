@@ -10,6 +10,8 @@
 
 sed -i 's/KERNEL_PATCHVER:=6.1/KERNEL_PATCHVER:=5.10/g' ./target/linux/x86/Makefile
 sed -i 's/KERNEL_PATCHVER:=5.15/KERNEL_PATCHVER:=5.10/g' ./target/linux/x86/Makefile
+sed -i 's/^#\(.*luci\)/\1/' feeds.conf.default
+# sed -i '2i src-git luci https://github.com/coolsnowwolf/luci.git' feeds.conf.default
 
 function merge_package(){
     repo=`echo $1 | rev | cut -d'/' -f 1 | rev`
