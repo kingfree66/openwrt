@@ -13,6 +13,7 @@ sed -i '/openwrt-23.05/d' feeds.conf.default
 sed -i 's/^#\(.*luci\)/\1/' feeds.conf.default
 # sed -i '2i src-git luci https://github.com/coolsnowwolf/luci.git' feeds.conf.default
 
+
 function merge_package(){
     repo=`echo $1 | rev | cut -d'/' -f 1 | rev`
     pkg=`echo $2 | rev | cut -d'/' -f 1 | rev`
