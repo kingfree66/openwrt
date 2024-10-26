@@ -59,3 +59,4 @@ git clone https://github.com/sirpdboy/luci-app-lucky.git package/lucky
 chmod 755 ./package/lucky/luci-app-lucky/root/usr/bin/luckyarch
 git clone https://github.com/liudf0716/luci-app-apfree-wifidog.git package/wifidog
 git clone https://github.com/destan19/OpenAppFilter.git package/OpenAppFilter
+merge_package https://github.com/vernesong/OpenClash OpenClash/luci-app-openclash
