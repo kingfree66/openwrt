@@ -174,7 +174,7 @@ jobs:
       uses: ncipollo/release-action@v1
       if: env.UPLOAD_RELEASE == 'true' && !cancelled()
       with:
-        name: ${{ env.FILE_TIME }} 「 openwrt-6.6-X86-64 」
+        name: ${{ env.FILE_TIME }} 「 openwrt-6.12-X86-64 」
         allowUpdates: true
         tag: ${{ env.TAG_TIME }}
         commit: main
