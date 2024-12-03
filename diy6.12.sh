@@ -27,6 +27,13 @@ function drop_package(){
 
 rm -rf package/custom; mkdir package/custom
 
+# 修改openwrt登陆地址,把下面的192.168.2.106修改成你想要的就可以了
+sed -i 's/192.168.1.1/192.168.2.106/g' package/base-files/files/bin/config_generate
+
+# 修改主机名字，把Unicorn修改你喜欢的就行（不能纯数字或者使用中文）
+sed -i "/uci commit system/i\uci set system.@system[0].hostname='OpenWrt-King'" package/lean/default-settings/files/zzz-default-settings
+sed -i "s/hostname='OpenWrt'/hostname='OpenWrt-King'/g" ./package/base-files/files/bin/config_generate
+
 # Add a feed source
 # git clone https://github.com/fw876/helloworld.git package/ssr
 git clone https://github.com/firker/diy-ziyong.git package/diy-ziyong
