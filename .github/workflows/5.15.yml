@@ -179,6 +179,7 @@ jobs:
         tag: ${{ env.TAG_TIME }}
         commit: main
         token: ${{ secrets.RELEASE_TOKEN }}
+        artifacts: ${{ env.FIRMWARE }}/*
 
     - name: 清理旧的workflow
       uses: Mattraks/delete-workflow-runs@v2
