@@ -6,7 +6,7 @@
 # Blog: https://p3terx.com
 #=================================================
 
-name: OpenWrt-5.15
+name: OpenWrt-lede5.15
 
 on:
   repository_dispatch:
@@ -17,7 +17,7 @@ on:
         required: false
         default: 'false'
   # schedule:
-   # - cron: 0 18 */3 * *
+   # - cron: 0 20 */3 * * 
 
 env:
   REPO_URL: https://github.com/coolsnowwolf/lede
@@ -56,43 +56,42 @@ jobs:
         large-packages: true
         docker-images: true
         swap-storage: true
-
+        
     - name: 安装编译环境
       env:
         DEBIAN_FRONTEND: noninteractive
       run: |
-        df -hT $PWD
-        sudo swapoff -a
-        sudo rm -f /swapfile
-        sudo apt clean
-        sudo rm -rf /usr/share/dotnet /etc/mysql /etc/php /etc/apt/sources.list.d /etc/apt/sources.list.d/* /usr/share/dotnet /usr/local/lib/android /opt/ghc
+        df -hT
+        sudo rm -rf /usr/share/dotnet /etc/mysql /etc/php /etc/apt/sources.list.d /usr/local/lib/android
         sudo -E apt-get -y purge azure-cli ghc* zulu* hhvm llvm* firefox google* dotnet* powershell openjdk* adoptopenjdk* mysql* php* mongodb* dotnet* moby* snapd* || true
+        sudo rm -rf /etc/apt/sources.list.d/* /usr/share/dotnet /usr/local/lib/android /opt/ghc
         sudo -E apt-get -qq update
         sudo -E apt-get -qq install $(curl -fsSL https://github.com/firkerword/openwrt-list/raw/master/depends-ubuntu-2004)
         sudo -E apt-get -qq autoremove --purge
         sudo -E apt-get -qq clean
         sudo timedatectl set-timezone "$TZ"
-        sudo mkdir -p /workdir
-        sudo chown $USER:$GROUPS /workdir
-          
+        sudo mkdir -p /mnt/workdir
+        sudo chown $USER:$GROUPS /mnt/workdir
+        df -hT
+
     - name: 下载固件源码
-      working-directory: /workdir
+      working-directory: /mnt/workdir
       run: |
         df -hT $PWD
         git clone $REPO_URL -b $REPO_BRANCH openwrt
-        ln -sf /workdir/openwrt $GITHUB_WORKSPACE/openwrt
+        ln -sf /mnt/workdir/openwrt $GITHUB_WORKSPACE/openwrt
         cd openwrt
         useVersionInfo=$(git show -s --date=short --format="%0AAuthor: %an%0Adate: %cd%0Acommit: %s%0Acommit hash: %H")
         echo "useVersionInfo=$useVersionInfo" >> $GITHUB_ENV
-        echo "DATE=$(date "+%Y-%m-%d %H:%M:%S")" >> $GITHUB_ENV
+        echo "DATE=$(date "+%Y-%m-%d %H:%M:%S")" >> $GITHUB_ENV   
         
     - name: 加载自定义设置
       run: |
         [ -e $FEEDS_CONF ] && mv $FEEDS_CONF openwrt/feeds.conf.default
         chmod +x $DIY_P1_SH
-
         cd openwrt
         $GITHUB_WORKSPACE/$DIY_P1_SH
+        
     - name: 下载插件
       run: cd openwrt && ./scripts/feeds update -a
 
@@ -106,6 +105,7 @@ jobs:
         chmod +x $DIY_P2_SH
         cd openwrt
         $GITHUB_WORKSPACE/$DIY_P2_SH
+        
     - name: SSH链接管理
       uses: P3TERX/ssh2actions@v1.0.0
       if: (github.event.inputs.ssh == 'true' && github.event.inputs.ssh  != 'false') || contains(github.event.action, 'ssh')
@@ -121,6 +121,7 @@ jobs:
         make download -j8
         find dl -size -1024c -exec ls -l {} \;
         find dl -size -1024c -exec rm -f {} \;
+        
     - name: 开始编译固件
       id: compile
       run: |
@@ -143,7 +144,7 @@ jobs:
       if: steps.compile.outputs.status == 'success' && env.UPLOAD_BIN_DIR == 'true'
       with:
         name: OpenWrt_bin${{ env.DEVICE_NAME }}${{ env.FILE_DATE }}
-        path: openwrt/bin/packages/x86_64/base
+        path: openwrt/bin/packages/x86_64
 
     - name: 整理编译好的固件
       id: organize
@@ -165,9 +166,9 @@ jobs:
       uses: actions/upload-artifact@main
       if: steps.organize.outputs.status == 'success' && !cancelled()
       with:
-        name: OpenWrt_5.15${{ env.DEVICE_NAME }}${{ env.FILE_DATE }}
+        name: OpenWrt_6.6D${{ env.DEVICE_NAME }}${{ env.FILE_DATE }}
         path: ${{ env.FIRMWARE }}
-        
+    
     - name: 发布至release
       id: release
       uses: ncipollo/release-action@v1
@@ -178,16 +179,16 @@ jobs:
         tag: ${{ env.TAG_TIME }}
         commit: main
         token: ${{ secrets.RELEASE_TOKEN }}
-        artifacts: ${{ env.FIRMWARE }}/*
 
     - name: 清理旧的workflow
-      uses: FunctionXJB/delete-workflow-runs@main
+      uses: Mattraks/delete-workflow-runs@v2
       with:
+        token: ${{ secrets.RELEASE_TOKEN }}
         retain_days: 180
         keep_minimum_runs: 10
 
     - name: 删除旧的Releases
-      uses: dev-drprasad/delete-older-releases@v0.2.1
+      uses: dev-drprasad/delete-older-releases@v0.3.2
       if: env.UPLOAD_RELEASE == 'true' && !cancelled()
       with:
         keep_latest: 9
