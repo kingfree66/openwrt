@@ -17,7 +17,7 @@ on:
         required: false
         default: 'false'
   # schedule:
-    # - cron: 0 22 */3 * * 
+   # - cron: 0 20 */3 * * 
 
 env:
   REPO_URL: https://github.com/coolsnowwolf/lede
@@ -70,16 +70,16 @@ jobs:
         sudo -E apt-get -qq autoremove --purge
         sudo -E apt-get -qq clean
         sudo timedatectl set-timezone "$TZ"
-        sudo mkdir -p /workdir
-        sudo chown $USER:$GROUPS /workdir
+        sudo mkdir -p /mnt/workdir
+        sudo chown $USER:$GROUPS /mnt/workdir
         df -hT
-        
+
     - name: 下载固件源码
-      working-directory: /workdir
+      working-directory: /mnt/workdir
       run: |
         df -hT $PWD
         git clone $REPO_URL -b $REPO_BRANCH openwrt
-        ln -sf /workdir/openwrt $GITHUB_WORKSPACE/openwrt
+        ln -sf /mnt/workdir/openwrt $GITHUB_WORKSPACE/openwrt
         cd openwrt
         useVersionInfo=$(git show -s --date=short --format="%0AAuthor: %an%0Adate: %cd%0Acommit: %s%0Acommit hash: %H")
         echo "useVersionInfo=$useVersionInfo" >> $GITHUB_ENV
@@ -168,7 +168,7 @@ jobs:
       with:
         name: OpenWrt_6.6D${{ env.DEVICE_NAME }}${{ env.FILE_DATE }}
         path: ${{ env.FIRMWARE }}
-
+    
     - name: 发布至release
       id: release
       uses: ncipollo/release-action@v1
@@ -179,7 +179,6 @@ jobs:
         tag: ${{ env.TAG_TIME }}
         commit: main
         token: ${{ secrets.RELEASE_TOKEN }}
-        artifacts: ${{ env.FIRMWARE }}/*
 
     - name: 清理旧的workflow
       uses: Mattraks/delete-workflow-runs@v2
@@ -196,4 +195,3 @@ jobs:
         delete_tags: true
       env:
         GITHUB_TOKEN: ${{ secrets.RELEASE_TOKEN }}
-        
