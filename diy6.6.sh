@@ -7,12 +7,12 @@
 # Author: P3TERX
 # Blog: https://p3terx.com
 #=============================================================
-
 sed -i 's/KERNEL_PATCHVER:=6.6/KERNEL_PATCHVER:=6.12/g' ./target/linux/x86/Makefile
 sed -i '/openwrt-24.10/d' feeds.conf.default
 sed -i 's/^#\(.*luci\)/\1/' feeds.conf.default
-# sed -i '2i src-git luci https://github.com/coolsnowwolf/luci.git' feeds.conf.default
 
+# Uncomment a feed source
+# sed -i 's/^#\(.*helloworld\)/\1/' feeds.conf.default
 
 function merge_package(){
     repo=`echo $1 | rev | cut -d'/' -f 1 | rev`
