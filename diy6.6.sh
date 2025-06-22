@@ -10,7 +10,7 @@
 
 sed -i 's/KERNEL_PATCHVER:=6.6/KERNEL_PATCHVER:=6.12/g' ./target/linux/x86/Makefile
 sed -i '/openwrt-24.10/d' feeds.conf.default
-# sed -i 's/^#\(.*luci\)/\1/' feeds.conf.default
+sed -i 's/^#\(.*luci\)/\1/' feeds.conf.default
 
 # Uncomment a feed source
 # sed -i 's/^#\(.*helloworld\)/\1/' feeds.conf.default
