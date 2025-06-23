@@ -62,14 +62,14 @@ jobs:
       env:
         DEBIAN_FRONTEND: noninteractive
       run: |
-        df -hT $PWD
+        df -hT $PWD               
         sudo -E apt-get -qq update
         sudo bash -c 'bash <(curl -s https://build-scripts.immortalwrt.org/init_build_environment.sh)'
         sudo -E apt-get -qq autoremove --purge
         sudo -E apt-get -qq clean
         sudo timedatectl set-timezone "$TZ"
-        sudo mkdir -p /workdir
-        sudo chown $USER:$GROUPS /workdir
+        sudo mkdir -p /mnt/workdir
+        sudo chown $USER:$GROUPS /mnt/workdir
         
     - name: 下载固件源码
       working-directory: /workdir
