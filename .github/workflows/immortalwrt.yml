@@ -186,4 +186,4 @@ jobs:
         keep_latest: 9
         delete_tags: true
       env:
-       token: ${{ secrets.RELEASE_TOKEN }}
+        GITHUB_TOKEN: ${{ secrets.RELEASE_TOKEN }}
