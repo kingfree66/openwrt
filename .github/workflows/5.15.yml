@@ -6,7 +6,7 @@
 # Blog: https://p3terx.com
 #=================================================
 
-name: OpenWrt-lede5.15
+name: OpenWrt-5.15
 
 on:
   repository_dispatch:
@@ -139,13 +139,12 @@ jobs:
       if: (!cancelled())
       run: df -hT
 
-    -     - name: 上传bin压缩目录
+    - name: 上传bin压缩目录
       uses: actions/upload-artifact@main
       if: steps.compile.outputs.status == 'success' && env.UPLOAD_BIN_DIR == 'true'
       with:
         name: OpenWrt_bin${{ env.DEVICE_NAME }}${{ env.FILE_DATE }}
-        path: openwrt/bin/packages/x86_64/**/*.ipk
-
+        path: openwrt/bin/packages/x86_64
 
     - name: 整理编译好的固件
       id: organize
@@ -167,7 +166,7 @@ jobs:
       uses: actions/upload-artifact@main
       if: steps.organize.outputs.status == 'success' && !cancelled()
       with:
-        name: OpenWrt_5.15${{ env.DEVICE_NAME }}${{ env.FILE_DATE }}
+        name: OpenWrt_6.6D${{ env.DEVICE_NAME }}${{ env.FILE_DATE }}
         path: ${{ env.FIRMWARE }}
     
     - name: 发布至release
