@@ -166,7 +166,7 @@ jobs:
       uses: actions/upload-artifact@main
       if: steps.organize.outputs.status == 'success' && !cancelled()
       with:
-        name: OpenWrt_6.6D${{ env.DEVICE_NAME }}${{ env.FILE_DATE }}
+        name: OpenWrt_6.6${{ env.DEVICE_NAME }}${{ env.FILE_DATE }}
         path: ${{ env.FIRMWARE }}
     
     - name: 发布至release
