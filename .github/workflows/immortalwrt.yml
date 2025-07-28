@@ -116,11 +116,6 @@ jobs:
         find dl -size -1024c -exec ls -l {} \;
         find dl -size -1024c -exec rm -f {} \;
 
-        
-    - name: Change default hostname
-      run:  
-        sed -i "s/hostname='OpenWrt'/hostname='FreeKingWrt'/" package/base-files/files/bin/config_generate
-
     - name: 开始编译固件
       id: compile
       run: |
