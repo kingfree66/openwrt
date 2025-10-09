@@ -8,7 +8,7 @@
 # Blog: https://p3terx.com
 #=============================================================
 
-sed -i 's/KERNEL_PATCHVER:=6.6/KERNEL_PATCHVER:=6.12/g' ./target/linux/x86/Makefile
+sed -i 's/KERNEL_PATCHVER:=6.6/KERNEL_PATCHVER:=6.6/g' ./target/linux/x86/Makefile
 sed -i '/openwrt-23.05/d' feeds.conf.default
 sed -i '/openwrt-24.10/d' feeds.conf.default
 sed -i 's/^#\(.*luci\)/\1/' feeds.conf.default
