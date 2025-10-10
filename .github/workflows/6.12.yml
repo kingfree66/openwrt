@@ -99,11 +99,12 @@ jobs:
       run: cd openwrt && ./scripts/feeds install -a
 
     - name: 修复 nmap ndiff 编译错误
+      working-directory: openwrt
       run: |
         echo ">> Patching nmap Makefile to skip ndiff Python wheel build"
-        if [ -f openwrt/feeds/packages/net/nmap/Makefile ]; then
-          sed -i '/define Build\/Compile/i\MAKE_FLAGS += NDIFF_BUILD=no' openwrt/feeds/packages/net/nmap/Makefile || true
-          sed -i 's/ndiff//' openwrt/feeds/packages/net/nmap/Makefile || true
+        if [ -f feeds/packages/net/nmap/Makefile ]; then
+          sed -i '/define Build\/Compile/i\MAKE_FLAGS += NDIFF_BUILD=no' feeds/packages/net/nmap/Makefile || true
+          sed -i 's/ndiff//' feeds/packages/net/nmap/Makefile || true
           echo "✅ nmap patch applied successfully"
         else
           echo "⚠️ nmap Makefile not found, skip patch"
