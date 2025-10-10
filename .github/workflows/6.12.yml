@@ -110,6 +110,11 @@ jobs:
           echo "⚠️ nmap Makefile not found, skip patch"
         fi
 
+    - name: 清理旧缓存
+      run: |
+        cd openwrt
+        rm -rf tmp/ build_dir/ staging_dir/
+        
     - name: 更改设置
       run: |
         [ -e files ] && mv files openwrt/files
