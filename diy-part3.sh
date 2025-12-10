@@ -17,7 +17,7 @@ curl -fsSL  https://raw.githubusercontent.com/firkerword/KPR/main/logo.jpg > ./p
 # curl -fsSL  https://raw.githubusercontent.com/firkerword/KPR/main/cus_config.yaml > ./package/openwrt-mos/luci-app-mosdns/root/etc/mosdns/cus_config.yaml
 # wget https://raw.githubusercontent.com/firkerword/KPR/main/cus_config.yaml -O ./package/openwrt-mos/luci-app-mosdns/root/etc/mosdns/config.yaml
 # Modify default IP
-# sed -i 's/192.168.2.106/192.168.2.106/g' package/base-files/files/bin/config_generate
+sed -i 's/192.168.1.1/192.168.2.106/g' package/base-files/files/bin/config_generate
 # sed -i 's/luci-theme-bootstrap/luci-theme-argon/g' ./feeds/luci/collections/luci/Makefile
 sed -i 's/luci-theme-bootstrap/luci-theme-opentomcat/g' ./feeds/luci/collections/luci/Makefile
 # rm -rf ./feeds/luci/applications/luci-app-qbittorrent
