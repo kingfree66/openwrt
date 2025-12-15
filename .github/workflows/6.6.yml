@@ -121,7 +121,13 @@ jobs:
         make download -j8
         find dl -size -1024c -exec ls -l {} \;
         find dl -size -1024c -exec rm -f {} \;
-        
+
+    - name: 编译 Host 工具（修复 po2lmo 缺失）
+      run: |
+        cd openwrt
+        make tools/install -j$(nproc)
+        make toolchain/install -j$(nproc)
+
     - name: 开始编译固件
       id: compile
       run: |
