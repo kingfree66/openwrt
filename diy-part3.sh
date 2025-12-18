@@ -18,7 +18,7 @@ curl -fsSL  https://raw.githubusercontent.com/firkerword/KPR/main/logo.jpg > ./p
 # wget https://raw.githubusercontent.com/firkerword/KPR/main/cus_config.yaml -O ./package/openwrt-mos/luci-app-mosdns/root/etc/mosdns/config.yaml
 # Modify default IP
 # sed -i 's/192.168.1.1/192.168.2.106/g' package/base-files/files/bin/config_generate
-sed -i 's/luci-theme-bootstrap/luci-theme-kucat/g' ./feeds/luci/collections/luci/Makefile
+# sed -i 's/luci-theme-bootstrap/luci-theme-kucat/g' ./feeds/luci/collections/luci/Makefile
 # sed -i 's/luci-theme-bootstrap/luci-theme-opentomcat/g' ./feeds/luci/collections/luci/Makefile
 # rm -rf ./feeds/luci/applications/luci-app-qbittorrent
 rm -rf ./feeds/luci/applications/luci-app-wechatpush
@@ -36,10 +36,3 @@ rm -rf ./package/ssr/v2ray-geodata
 # svn co https://github.com/Lienol/openwrt-packages/trunk/net/https-dns-proxy feeds/packages/net/https-dns-proxy
 # rm -rf feeds/packages/lang/golang
 # git clone https://github.com/sbwml/packages_lang_golang -b 22.x feeds/packages/lang/golang
-mkdir -p files/etc/config
-mkdir -p files/etc/config
-cat > files/etc/config/luci << 'EOF'
-config core 'main'
-    option lang 'auto'
-    option mediaurlbase '/luci-static/kucat'
-EOF
