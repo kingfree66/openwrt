@@ -9,8 +9,14 @@
 #=============================================================
 
 sed -i 's/KERNEL_PATCHVER:=.*/KERNEL_PATCHVER:=6.6/g' ./target/linux/x86/Makefile
-sed -i '/luci.*openwrt-23.05/s/^#*/#/' feeds.conf.default
-sed -i '/luci.*openwrt-24.10/s/^#*//' feeds.conf.default
+# 注释掉 luci openwrt-23.05
+sed -i 's/^\(src-git luci https:\/\/github.com\/coolsnowwolf\/luci.git;openwrt-23.05\)/#\1/' feeds.conf.default
+
+# 取消注释 luci openwrt-24.10
+sed -i 's/^#src-git luci https:\/\/github.com\/coolsnowwolf\/luci.git;openwrt-24.10/src-git luci https:\/\/github.com\/coolsnowwolf\/luci.git;openwrt-24.10/' feeds.conf.default
+
+# 取消注释 qmodem
+sed -i 's/^#src-git qmodem/src-git qmodem/' feeds.conf.default
 
 function merge_package(){
     repo=`echo $1 | rev | cut -d'/' -f 1 | rev`
