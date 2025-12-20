@@ -9,7 +9,7 @@
 #=============================================================
 
 sed -i 's/KERNEL_PATCHVER:=.*/KERNEL_PATCHVER:=6.6/g' ./target/linux/x86/Makefile
-sed -i '/luci.*openwrt-23.05/s/^#*/#/' feeds.conf.default
+# sed -i '/luci.*openwrt-23.05/s/^#*/#/' feeds.conf.default
 sed -i '/luci.*openwrt-24.10/s/^#*//' feeds.conf.default
 
 function merge_package(){
