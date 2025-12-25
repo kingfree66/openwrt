@@ -10,7 +10,7 @@
 
 sed -i 's/KERNEL_PATCHVER:=.*/KERNEL_PATCHVER:=6.6/g' ./target/linux/x86/Makefile
 sed -i '/^src-git luci/d' feeds.conf.default
-sed -i '2i src-git luci https://github.com/openwrt/luci.git;openwrt-24.10' feeds.conf.default
+sed -i '2i src-git luci https://github.com/openwrt/luci.git' feeds.conf.default
 
 function merge_package(){
     repo=`echo $1 | rev | cut -d'/' -f 1 | rev`
