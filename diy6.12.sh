@@ -41,6 +41,9 @@ git clone https://github.com/fw876/helloworld.git package/ssr
 git clone https://github.com/firker/diy-ziyong.git package/diy-ziyong
 git clone -b 18.06 https://github.com/garypang13/luci-theme-edge.git package/luci-theme-edge
 git clone -b 18.06 https://github.com/jerrykuku/luci-theme-argon.git  package/luci-theme-argon-18.06
+git clone https://github.com/sirpdboy/luci-theme-kucat.git
+wget --no-check-certificate https://github.com/sirpdboy/luci-theme-kucat/releases/download/v2.6.18/luci-theme-kucat_2.6.18-r20251018_all.ipk
+wget --no-check-certificate -O luci-theme-kucat_2.6.10-r20250720_all.ipk https://github.com/sirpdboy/luci-app-kucat-config/releases/download/v1.1.0/luci-theme-kucat_2.6.10-r20250720_all.ipk
 git clone https://github.com/gngpp/luci-theme-neobird.git package/luci-theme-neobird
 git clone https://github.com/sirpdboy/luci-theme-opentopd.git package/luci-theme-opentopd
 # find ./ | grep Makefile | grep mosdns | xargs rm -f
