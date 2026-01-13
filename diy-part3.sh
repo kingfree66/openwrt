@@ -7,6 +7,8 @@
 # Author: P3TERX
 # Blog: https://p3terx.com
 #============================================================
+# 关闭 kmod 的 manpages，避免缺少 scdoc 导致编译失败
+sed -i 's|^\(\s*./configure.*\)$|\1 --disable-manpages|' feeds/packages/utils/kmod/Makefile
 sed -i '/DTS_DIR:=$(LINUX_DIR)/a\BUILD_DATE_PREFIX := $(shell date +'%F')' ./include/image.mk
 sed -i 's/IMG_PREFIX:=/IMG_PREFIX:=$(BUILD_DATE_PREFIX)-/g' ./include/image.mk
 sed -i "s/DISTRIB_DESCRIPTION='OpenWrt '/DISTRIB_DESCRIPTION='OpenWrt-King '/g" ./package/lean/default-settings/files/zzz-default-settings
