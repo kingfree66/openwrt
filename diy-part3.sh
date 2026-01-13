@@ -38,3 +38,5 @@ rm -rf ./package/ssr/v2ray-geodata
 # svn co https://github.com/Lienol/openwrt-packages/trunk/net/https-dns-proxy feeds/packages/net/https-dns-proxy
 # rm -rf feeds/packages/lang/golang
 # git clone https://github.com/sbwml/packages_lang_golang -b 22.x feeds/packages/lang/golang
+# Fix kmod build: disable manpages to avoid scdoc dependency
+sed -i '/CONFIGURE_ARGS +=/a\	--disable-manpages \\' feeds/packages/utils/kmod/Makefile
