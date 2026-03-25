@@ -1,4 +1,4 @@
-name: lean OpenWrt-X86/64
+name:  lean OpenWrt-X86/64
 
 on:
   workflow_dispatch:
