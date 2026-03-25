@@ -1,4 +1,4 @@
-name:  lean OpenWrt-X86/64
+name: Build OpenWrt (Lean LEDE)
 
 on:
   workflow_dispatch:
