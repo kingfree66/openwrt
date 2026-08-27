@@ -27,6 +27,7 @@ jobs:
     - name: Install Dependencies
       run: |
         sudo apt update
+        sudo apt install -y python3-pip && pip3 install setuptools --break-system-packages
         sudo apt install -y \
           ack antlr3 asciidoc autoconf automake autopoint binutils bison \
           build-essential bzip2 ccache cmake cpio curl device-tree-compiler \
@@ -52,9 +53,9 @@ src-git packages https://github.com/coolsnowwolf/packages
 src-git luci https://github.com/coolsnowwolf/luci
 src-git routing https://github.com/coolsnowwolf/routing
 src-git telephony https://github.com/coolsnowwolf/telephony.git
-src-git passwall_packages https://github.com/xiaorouji/openwrt-passwall-packages.git;main
+src-git passwall_packages https://github.com/xiaorouji/openwrt-passwall.git;packages
 src-git passwall https://github.com/xiaorouji/openwrt-passwall.git;main
-src-git passwall2 https://github.com/xiaorouji/openwrt-passwall2.git;main
+
 src-git openclash https://github.com/vernesong/OpenClash.git;master
 src-git small https://github.com/kenzok8/small-package.git
 src-git kenzo https://github.com/kenzok8/openwrt-packages.git
