@@ -22,7 +22,7 @@ sed -i "s/hostname='OpenWrt'/hostname='OpenWrt-King'/g" ./package/base-files/fil
 
 # Add a feed source
 # sed -i '$a src-git lienol https://github.com/Lienol/openwrt-package' feeds.conf.default
-# sed -i '$a src-git passwall https://github.com/xiaorouji/openwrt-passwall' feeds.conf.default
+# sed -i '$a src-git passwall https://github.com/Openwrt-Passwall/openwrt-passwall' feeds.conf.default
 # sed -i '$a src-git jerryk https://github.com/jerrykuku/openwrt-package' feeds.conf.default
 git clone https://github.com/jerrykuku/lua-maxminddb.git  package/lua-maxminddb
 git clone https://github.com/jerrykuku/luci-app-vssr.git  package/luci-app-vssr
@@ -38,13 +38,13 @@ src-git infinityfreedom https://github.com/xiaoqingfengATGH/luci-theme-infinityf
 # git clone https://github.com/firkerword/openwrt-mos.git package/openwrt-mos
 # git clone https://github.com/QiuSimons/openwrt-mos.git package/openwrt-mos
 # find ./ | grep Makefile | grep v2ray-geodata | xargs rm -f
-git clone https://github.com/xiaorouji/openwrt-passwall-packages.git package/openwrt-passwall
-git clone https://github.com/xiaorouji/openwrt-passwall.git package/passwall
-# git clone -b luci-smartdns-new-version https://github.com/xiaorouji/openwrt-passwall.git package/passwall
+git clone https://github.com/Openwrt-Passwall/openwrt-passwall-packages.git package/openwrt-passwall
+git clone https://github.com/Openwrt-Passwall/openwrt-passwall.git package/passwall
+# git clone -b luci-smartdns-new-version https://github.com/Openwrt-Passwall/openwrt-passwall.git package/passwall
 # git clone https://github.com/firkerword/luci-app-mosdns.git package/mosdns
 git clone https://github.com/firkerword/luci-app-smartdns.git package/luci-app-smartdns
 git clone https://github.com/firkerword/smartdns.git package/smartdns
-git clone https://github.com/xiaorouji/openwrt-passwall2.git package/passwall2
+git clone https://github.com/Openwrt-Passwall/openwrt-passwall2.git package/passwall2
 find ./ | grep Makefile | grep v2ray-geodata | xargs rm -f
 find ./ | grep Makefile | grep mosdns | xargs rm -f
 git clone https://github.com/sbwml/luci-app-mosdns -b v5 package/mosdns
