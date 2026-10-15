@@ -38,5 +38,7 @@ rm -rf ./package/ssr/v2ray-geodata
 # svn co https://github.com/Lienol/openwrt-packages/trunk/net/https-dns-proxy feeds/packages/net/https-dns-proxy
 # rm -rf feeds/packages/lang/golang
 # git clone https://github.com/sbwml/packages_lang_golang -b 22.x feeds/packages/lang/golang
+# 设置 argon 为默认主题
+sed -i 's/luci-theme-bootstrap/luci-theme-argon/g' ./feeds/luci/collections/luci/Makefile
 # Fix kmod build: disable manpages to avoid scdoc dependency
 sed -i '/CONFIGURE_ARGS +=/a\	--disable-manpages \\' feeds/packages/utils/kmod/Makefile

@@ -66,3 +66,5 @@ git clone https://github.com/liudf0716/luci-app-apfree-wifidog.git package/wifid
 git clone https://github.com/destan19/OpenAppFilter.git package/OpenAppFilter
 merge_package https://github.com/vernesong/OpenClash OpenClash/luci-app-openclash
 git clone https://github.com/linkease/istore.git package/istore
+# Nikki (mihomo 透明代理) + luci-app-nikki，mihomo-meta 提供 mihomo 依赖
+git clone https://github.com/nikkinikki-org/OpenWrt-nikki.git package/nikki
