@@ -80,7 +80,12 @@ cp -r "$TURBOACC_TMP/pkg/shortcut-fe" package/turboacc/
 rm -rf "$TURBOACC_TMP"
 [ -f package/turboacc/luci-app-turboacc/Makefile ] || { echo "ERROR: turboacc 拉取失败"; exit 1; }
 # luci-app-zerotier：官方 luci 源(openwrt-24.10)中没有，从 coolsnowwolf/luci 取
-svn co https://github.com/coolsnowwolf/luci/branches/openwrt-24.10/applications/luci-app-zerotier package/luci-app-zerotier
+# 注意：不用 svn，GitHub 已停用 Subversion 协议，改用 git 稀疏检出
+rm -rf /tmp/luci-zt
+git clone --depth 1 --branch openwrt-24.10 --sparse https://github.com/coolsnowwolf/luci.git /tmp/luci-zt
+git -C /tmp/luci-zt sparse-checkout set applications/luci-app-zerotier
+cp -r /tmp/luci-zt/applications/luci-app-zerotier package/luci-app-zerotier
+rm -rf /tmp/luci-zt
 # package/ 目录下的 luci 应用需用绝对路径引用 luci.mk
 sed -i 's#include ../../luci.mk#include $(TOPDIR)/feeds/luci/luci.mk#' package/luci-app-zerotier/Makefile
 [ -f package/luci-app-zerotier/Makefile ] || { echo "ERROR: luci-app-zerotier 拉取失败"; exit 1; }
