@@ -68,6 +68,10 @@ merge_package https://github.com/vernesong/OpenClash OpenClash/luci-app-openclas
 git clone https://github.com/linkease/istore.git package/istore
 # Nikki (mihomo 透明代理) + luci-app-nikki，mihomo-meta 提供 mihomo 依赖
 git clone https://github.com/nikkinikki-org/OpenWrt-nikki.git package/nikki
+# nikki 的 DEPENDS 写的是虚拟包名 +mihomo，会与显式选择的 mihomo-meta 在 opkg
+# 安装阶段对 /usr/libexec/mihomo 文件冲突；改成直接依赖真实包名，只安装一次
+sed -i 's/+mihomo$/+mihomo-meta/' package/nikki/nikki/Makefile
+grep -q '+mihomo-meta' package/nikki/nikki/Makefile || { echo "ERROR: nikki 依赖修补失败"; exit 1; }
 # Turbo ACC (chenmozhijin)：luci-app + SFE 内核加速
 # LEDE 的 6.6 内核补丁与配置已自带(952/953/613)，只需补充软件包
 TURBOACC_TMP="$(mktemp -d)"
@@ -75,7 +79,9 @@ git clone --depth 1 --single-branch -b luci https://github.com/chenmozhijin/turb
 git clone --depth 1 --single-branch -b package https://github.com/chenmozhijin/turboacc.git "$TURBOACC_TMP/pkg"
 mkdir -p package/turboacc
 cp -r "$TURBOACC_TMP/turboacc/luci-app-turboacc" package/turboacc/
-cp -r "$TURBOACC_TMP/pkg/nft-fullcone" package/turboacc/
+# 注意：不要拷贝 nft-fullcone！LEDE 自带 package/network/services/fullconenat-nft
+#（定义 KernelPackage/nft-fullcone，与 LEDE 内核 fullcone 补丁配套）；重复定义会导致
+# kmod-nft-fullcone 编不出来，连累 firewall4/openclash/nikki/turboacc 在打包阶段失败
 cp -r "$TURBOACC_TMP/pkg/shortcut-fe" package/turboacc/
 rm -rf "$TURBOACC_TMP"
 [ -f package/turboacc/luci-app-turboacc/Makefile ] || { echo "ERROR: turboacc 拉取失败"; exit 1; }
