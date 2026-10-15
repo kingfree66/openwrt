@@ -32,16 +32,16 @@ rm -rf package/custom; mkdir package/custom
 sed -i '$a src-git nas https://github.com/linkease/nas-packages.git;master' feeds.conf.default
 sed -i '$a src-git nas_luci https://github.com/linkease/nas-packages-luci.git;main' feeds.conf.default
 # sed -i '$a src-git lienol https://github.com/Lienol/openwrt-package' feeds.conf.default
-# sed -i '$a src-git passwall https://github.com/xiaorouji/openwrt-passwall' feeds.conf.default
+# sed -i '$a src-git passwall https://github.com/Openwrt-Passwall/openwrt-passwall' feeds.conf.default
 # sed -i '$a src-git jerryk https://github.com/jerrykuku/openwrt-package' feeds.conf.default
 # git clone https://github.com/jerrykuku/luci-theme-argon.git package/luci-theme-argon
 # git clone https://github.com/QiuSimons/openwrt-mos.git package/openwrt-mos
 git clone https://github.com/fw876/helloworld.git package/ssr
 git clone -b 2305 https://github.com/firker/diy-ziyong.git package/diy-ziyong
 git clone https://github.com/nikkinikki-org/OpenWrt-nikki.git package/openwrt-nikki
-git clone https://github.com/xiaorouji/openwrt-passwall-packages.git package/openwrt-passwall
-git clone https://github.com/xiaorouji/openwrt-passwall.git package/passwall
-git clone https://github.com/xiaorouji/openwrt-passwall2.git package/passwall2
+git clone https://github.com/Openwrt-Passwall/openwrt-passwall-packages.git package/openwrt-passwall
+git clone https://github.com/Openwrt-Passwall/openwrt-passwall.git package/passwall
+git clone https://github.com/Openwrt-Passwall/openwrt-passwall2.git package/passwall2
 git clone https://github.com/linkease/istore.git package/istore
 git clone https://github.com/linkease/istore-ui.git package/istore-ui
 git clone -b lede https://github.com/pymumu/luci-app-smartdns.git package/luci-app-smartdns
