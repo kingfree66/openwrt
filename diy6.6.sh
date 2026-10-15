@@ -68,3 +68,19 @@ merge_package https://github.com/vernesong/OpenClash OpenClash/luci-app-openclas
 git clone https://github.com/linkease/istore.git package/istore
 # Nikki (mihomo 透明代理) + luci-app-nikki，mihomo-meta 提供 mihomo 依赖
 git clone https://github.com/nikkinikki-org/OpenWrt-nikki.git package/nikki
+# Turbo ACC (chenmozhijin)：luci-app + SFE 内核加速
+# LEDE 的 6.6 内核补丁与配置已自带(952/953/613)，只需补充软件包
+TURBOACC_TMP="$(mktemp -d)"
+git clone --depth 1 --single-branch -b luci https://github.com/chenmozhijin/turboacc.git "$TURBOACC_TMP/turboacc"
+git clone --depth 1 --single-branch -b package https://github.com/chenmozhijin/turboacc.git "$TURBOACC_TMP/pkg"
+mkdir -p package/turboacc
+cp -r "$TURBOACC_TMP/turboacc/luci-app-turboacc" package/turboacc/
+cp -r "$TURBOACC_TMP/pkg/nft-fullcone" package/turboacc/
+cp -r "$TURBOACC_TMP/pkg/shortcut-fe" package/turboacc/
+rm -rf "$TURBOACC_TMP"
+[ -f package/turboacc/luci-app-turboacc/Makefile ] || { echo "ERROR: turboacc 拉取失败"; exit 1; }
+# luci-app-zerotier：官方 luci 源(openwrt-24.10)中没有，从 coolsnowwolf/luci 取
+svn co https://github.com/coolsnowwolf/luci/branches/openwrt-24.10/applications/luci-app-zerotier package/luci-app-zerotier
+# package/ 目录下的 luci 应用需用绝对路径引用 luci.mk
+sed -i 's#include ../../luci.mk#include $(TOPDIR)/feeds/luci/luci.mk#' package/luci-app-zerotier/Makefile
+[ -f package/luci-app-zerotier/Makefile ] || { echo "ERROR: luci-app-zerotier 拉取失败"; exit 1; }
