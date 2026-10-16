@@ -39,6 +39,10 @@ rm -rf ./package/ssr/v2ray-geodata
 # rm -rf feeds/packages/lang/golang
 # git clone https://github.com/sbwml/packages_lang_golang -b 22.x feeds/packages/lang/golang
 # 设置 argon 为默认主题
-sed -i 's/luci-theme-bootstrap/luci-theme-argon/g' ./feeds/luci/collections/luci/Makefile
+# 注意：官方 luci 源里主题依赖在 collections/luci-light/Makefile（luci/Makefile 里已没有主题字样），
+# 且 luci-theme-bootstrap 自带 30_luci-theme-bootstrap 会在首次开机把默认主题设回 bootstrap，
+# 因此在 default-settings（执行顺序靠后）里强制改回 argon
+sed -i 's/luci-theme-bootstrap/luci-theme-argon/g' ./feeds/luci/collections/luci-light/Makefile
+sed -i "/^exit 0/i uci set luci.main.mediaurlbase='/luci-static/argon'\nuci commit luci" package/lean/default-settings/files/zzz-default-settings
 # Fix kmod build: disable manpages to avoid scdoc dependency
 sed -i '/CONFIGURE_ARGS +=/a\	--disable-manpages \\' feeds/packages/utils/kmod/Makefile
